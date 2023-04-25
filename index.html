@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="./src/cytoscape.min.js"></script>
+  <title>EMC</title>
+</head>
+
+<body>
+	<header><h1>Epistemic Model Checker</h1>
+	<main>
+		<div class="block" id="formula-input">
+			<form action="/formula" method="GET">
+				<label>Formula:</label>
+				<input type ="text" id="formula" name="formula" required>
+				<button type ="reset">Reset</button>
+				<button type ="submit">Submit</button>
+				<br><br>
+			</form>
+		</div>
+		<div class="block" id="text-output"><p>Text output</p></div>
+		<div class="block" id="graphic-output">Graph output</div>
+
+		<form action="/team_name_url/" method="post">
+			<label for="team_name">Enter name: </label>
+			<input
+					id="team_name"
+					type="text"
+					name="name_field"
+					value="Default name for team." />
+			<input type="submit" value="OK" />
+		</form>
+
+	</main>
+</body>
+</html>
+
