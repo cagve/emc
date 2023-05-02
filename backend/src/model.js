@@ -115,7 +115,7 @@ class Model {
 
 	world_check(world, formula){
 		const subformulas_set = formula.subformulas();
-		var counterexample;
+		var example;
 		var flag;
 		for(var i=0;i<subformulas_set.length;i++){
 			var acc_worlds = [];
@@ -167,7 +167,28 @@ class Model {
 							this.world_check(curr_acc_world,terms[0]);
 							if(!curr_acc_world.contains_formula(terms[0])){
 								flag = false;
-								counterexample = curr_acc_world.name;
+								example = curr_acc_world.name;
+								break;
+							}
+						}
+						if (flag){
+							world.add_formula(curr_formula);
+						}
+					}
+					break;
+				case "pos":
+					agents = curr_formula.agent();
+					acc_worlds = this.get_acc_from_world(world,agents);
+					flag = false;
+					if (acc_worlds.length == 0) { //Final world
+						break;
+					}else{
+						for(var j = 0; j<acc_worlds.length; j++){
+							const curr_acc_world = acc_worlds[j];
+							this.world_check(curr_acc_world,terms[0]);
+							if(curr_acc_world.contains_formula(terms[0])){
+								flag = true;
+								example = curr_acc_world.name;
 								break;
 							}
 						}
@@ -188,7 +209,7 @@ class Model {
 							this.world_check(curr_acc_world,terms[0]);
 							if(!curr_acc_world.contains_formula(terms[0])){
 								flag = false;
-								counterexample = curr_acc_world.name;
+								example = curr_acc_world.name;
 								break;
 							}
 						}
@@ -201,9 +222,9 @@ class Model {
 			}
 		}
 		if(world.contains_formula(formula)){
-			return true;
+			return [true, example] ;
 		}else{
-			return [false, counterexample];
+			return [false, example];
 		}
 	}
 

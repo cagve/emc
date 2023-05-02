@@ -64,6 +64,10 @@
           {
             "type": "or",
             "named": true
+          },
+          {
+            "type": "pos",
+            "named": true
           }
         ]
       },
@@ -119,6 +123,21 @@
     }
   },
   {
+    "type": "pos",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "agent",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -132,6 +151,10 @@
   },
   {
     "type": "K",
+    "named": false
+  },
+  {
+    "type": "M",
     "named": false
   },
   {

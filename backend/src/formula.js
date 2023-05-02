@@ -37,6 +37,7 @@ class Formula {
 				break;
 
 			case "know":
+			case "pos":
 			case "common":
 			case "not":
 				const term = this.tree.rootNode.namedChildren[1].text;
@@ -70,6 +71,8 @@ class Formula {
 				operator:(common))@common_formula
 			(formula
 				operator:(know))@know_formula
+			(formula
+				operator:(pos))@pos_formula
 			(formula
 				operator:(eq))@eq_formula
 			(formula

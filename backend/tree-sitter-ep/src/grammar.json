@@ -110,6 +110,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "pos"
+        },
+        {
+          "type": "SYMBOL",
           "name": "common"
         }
       ]
@@ -161,6 +165,19 @@
         {
           "type": "STRING",
           "value": "K"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "agent"
+        }
+      ]
+    },
+    "pos": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "M"
         },
         {
           "type": "SYMBOL",

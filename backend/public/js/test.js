@@ -1,11 +1,11 @@
 function send_formula(){
 	var formula = document.getElementById('formula').value;
-	var text_output = document.getElementById('formula').value;
 	$.get("/check",
 		{
 			formula: formula,
 		},
 		function (data, status) {
+			console.log(data)
 			const myArray = data.formula.input.split(":");
 			let word = myArray[0];
 			if (data.error){
@@ -17,17 +17,22 @@ function send_formula(){
 			for (const [key, value] of Object.entries(data.worlds_check)) {
 				if (data.type == 'know'){ // EXPLANA
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
-						$("#text-output").append("<p>The formula "+formula+" is "+value+" in "+ key+" because there is no accesible world for agent "+data.agent);
-					}else if(value == true){ //Ka p is True 
-						$("#text-output").append("<p>The formula "+formula+" is "+value+" in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these/those worlds</p>");
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because there is no accesible world for agent "+data.agent+"</p>");
+					}else if(value[0] == true){ //Ka p is True 
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these/those worlds</p>");
 					}else{ //Ka p is false
 						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is false in this world</p>");
 					}
 				}
-
-
-				else{
-					$("#text-output").append("<p>The formula "+formula+" is "+value+" in "+ key+"</p>");
+				else if(data.type == "pos"){
+					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because there is no accesible world for agent "+data.agent+"</p>");
+					}else if (value[0] == true){
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is true in this world</p>");					
+					}else{
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is false in these/those worlds</p>");					}
+				} else{
+					$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+"</p>");
 				}
 			}
 
@@ -73,7 +78,7 @@ function upload_file(){
 		success: function(data){
 			console.log(data[0].graph);
 			// $('#tabspane').append('<div class="tabcontent" id="0"></div>')
-			$('#buttons').append("<button class='tablinks' onclick='return overwrite("+data[n].graph+")'>Model</button>")
+			$('#buttons').append("<button class='tablinks' onclick='return overwrite("+data[0].graph+")'>Model</button>")
 			create_graph();
 			overwrite(data[0].graph);
 		}
