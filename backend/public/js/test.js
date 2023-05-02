@@ -73,7 +73,7 @@ function upload_file(){
 		success: function(data){
 			console.log(data[0].graph);
 			// $('#tabspane').append('<div class="tabcontent" id="0"></div>')
-			$('#buttons').append("<button class='tablinks' onclick='return overwrite("+data[0].graph+")'>Model</button>")
+			$('#buttons').append("<button class='tablinks' onclick='return overwrite("+data[n].graph+")'>Model</button>")
 			create_graph();
 			overwrite(data[0].graph);
 		}

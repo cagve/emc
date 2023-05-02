@@ -23,7 +23,8 @@ module.exports = grammar({
 
 	  _monary_operator: $=> choice(
 		$.not,
-		$.know
+		$.know,
+		$.common
 	  ),
 	  _binary_operator: $=> choice(
 		  $.and,
@@ -38,6 +39,7 @@ module.exports = grammar({
 	  eq: $ => "<>",
 	  or: $ => "||",
 	  know: $=> seq("K",$.agent),
+	  common: $=> seq("C","{",repeat1($.agent),"}"),
 	  atom: $ => /[p-z]/,
 	  agent: $=> choice(
 		/[a-d]/,

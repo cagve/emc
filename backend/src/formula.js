@@ -37,6 +37,7 @@ class Formula {
 				break;
 
 			case "know":
+			case "common":
 			case "not":
 				const term = this.tree.rootNode.namedChildren[1].text;
 				terms.push(new Formula(term));
@@ -66,6 +67,8 @@ class Formula {
 			(formula
 				operator:(iff))@iff_formula
 			(formula
+				operator:(common))@common_formula
+			(formula
 				operator:(know))@know_formula
 			(formula
 				operator:(eq))@eq_formula
@@ -83,11 +86,14 @@ class Formula {
 	}
 
 	agent(){
-		if (this.type()!="know" || this.type() == "pos"){
+		if (this.type()=="common"){
+			return this.tree.rootNode.firstChild.namedChildren.map(element => element.text);
+		}
+		else if (this.type()=="know" || this.type() == "pos"){
+			return this.tree.rootNode.firstChild.children[1].text 
+		}else{
 			throw new Error('Invalid formula. You can not get agent for '+ this.type() + ' formula');
 		}
-		const agent = this.tree.rootNode.firstChild.children[1].text 
-		return agent
 	}
 	 
 }

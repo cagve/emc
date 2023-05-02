@@ -116,13 +116,17 @@ class Model {
 	world_check(world, formula){
 		const subformulas_set = formula.subformulas();
 		var counterexample;
+		var flag;
 		for(var i=0;i<subformulas_set.length;i++){
+			var acc_worlds = [];
 			const curr_formula = subformulas_set[i];
 			const terms = curr_formula.terms();
 			const type = curr_formula.type();
+			var agents;
 			switch(type){
 				case "atom": 
 					if (world.contains_formula(curr_formula)){
+						world.add_formula(curr_formula);
 					}
 					break;
 				case "not": 
@@ -145,10 +149,37 @@ class Model {
 						world.add_formula(curr_formula);
 					}
 					break;
+				case "common":
+					agents = curr_formula.agent();
+					const relations = this.group_relation(agents);
+					relations.forEach(element => {
+						if(world.name == element[0]){
+							acc_worlds.push(element[1])
+						}
+					});
+					flag = true;
+					if (acc_worlds.length == 0) { //Final world
+						world.add_formula(curr_formula);
+						console.log("FINAL WORLD")
+					}else{
+						for(var j = 0; j<acc_worlds.length;j++){
+							const curr_acc_world = this.get_world(acc_worlds[j]);
+							this.world_check(curr_acc_world,terms[0]);
+							if(!curr_acc_world.contains_formula(terms[0])){
+								flag = false;
+								counterexample = curr_acc_world.name;
+								break;
+							}
+						}
+						if (flag){
+							world.add_formula(curr_formula);
+						}
+					}
+					break;
 				case "know":
-					const agent = curr_formula.agent();
-					const acc_worlds = this.get_acc_from_world(world,agent);
-					let flag = true;
+					agents = curr_formula.agent();
+					acc_worlds = this.get_acc_from_world(world,agents);
+					flag = true;
 					if (acc_worlds.length == 0) { //Final world
 						world.add_formula(curr_formula);
 					}else{
@@ -276,7 +307,6 @@ class Model {
 				for (var z = 0; z<agent_worlds.length; z++){ //iterate over acc worlds from first world
 					var exists_relation = 0
 					if (second_world.equal(agent_worlds[z])){
-						console.log('relation' + first_world.name +"-"+second_world.name);
 						exists_relation = 1
 						break;
 					}
@@ -299,18 +329,17 @@ class Model {
 			}
 		}
 
-		const new_relations = []
+		const g_relations = []
 		for (var i = 0;i< this.worldset.length; i++){
 			for (var j = 0;j< this.worldset.length; j++){
 				if(closure[i][j] == 1){
 					const rel = [this.worldset[i].name, this.worldset[j].name]
-					new_relations.push(rel)
+					g_relations.push(rel)
 				}
 			}
 		}
 
-		console.log(new_relations);
-
+		return g_relations;
 	}
 
 	
