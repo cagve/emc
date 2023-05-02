@@ -40,12 +40,21 @@ class Formula {
 			case "pos":
 			case "common":
 			case "not":
-				const term = this.tree.rootNode.namedChildren[1].text;
+				var term = this.tree.rootNode.namedChildren[1].text
+				if (term[0] =="("){
+				term = term.slice(1,term.length-1);
+				}
 				terms.push(new Formula(term));
 				break;
 			default:
-				const term1 = this.tree.rootNode.namedChildren[0].text;
-				const term2 = this.tree.rootNode.namedChildren[2].text;
+				var term1 = this.tree.rootNode.namedChildren[0].text;
+				var term2 = this.tree.rootNode.namedChildren[2].text;
+				if (term1[0] =="("){
+				term1 = term.slice(1,term.length-1);
+				}
+				if (term2[0] =="("){
+				term2 = term.slice(1,term.length-1);
+				}
 				terms.push(new Formula(term1));
 				terms.push(new Formula(term2));
 				break;

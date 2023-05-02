@@ -231,7 +231,7 @@ class Model {
 	model_checking(formula){
 		for (var i=0;i<this.worldset.length;i++){
 			const curr_world = this.worldset[i];
-			if(!this.world_check(curr_world, formula)){
+			if(!this.world_check(curr_world, formula)[0]){
 				return false;
 			}
 		}
