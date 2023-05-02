@@ -287,16 +287,29 @@ class Model {
 				output.push(relation_data)
 			}
 		}
+
 		for(var i = 0; i<this.relationset.length; i++){
 			const curr_relation = this.relationset[i];
-			var relation_data = {
-				data: {
-					id: curr_relation.get_name(),
-					source: curr_relation.world1.name,
-					target: curr_relation.world2.name,
-					name: curr_relation.agent
-				},
-				classes:['relation']
+			const id = curr_relation.get_pair()[0].name+curr_relation.get_pair()[1].name;
+			var flag = false;
+			for(var j = 0; j<output.length; j++){
+				if(id  == output[j].data.id){
+					flag=true;
+					break;
+				} 
+			}
+			if (flag){
+				output[j].data.name = output[j].data.name + curr_relation.agent 
+			}else{
+				var relation_data = {
+					data: {
+						id: id,
+						source: curr_relation.world1.name,
+						target: curr_relation.world2.name,
+						name: curr_relation.agent
+					},
+					classes:['relation']
+				}
 			}
 			output.push(relation_data);
 		}
