@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>Tutorial 1: Getting Started</title>
+    <script src="cytoscape.js"></script>
+    <script src="graph.js"></script>
+</head>
+
+<style>
+    #cy {
+        width: 900px;
+        height: 900px;
+		border: 1px solid black;
+		z-index: 999;
+	}
+
+	body {
+		display:flex;
+		gap: 20px;
+		font-family: helvetica, sans-serif;
+		font-size: 14px;
+		}
+</style>
+
+<body>
+	<div> HOLA MUNDO</div>
+    <div id="cy"></div>
+	<button onclick="hello()">Hello</button>
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="cytoscape.js"></script>
+  <script src="graph.js"></script>
+  <title>EMC</title>
+</head> 
+<body>
+	<header><h1>Epistemic Model Checker</h1>
+	<main>
+		<div class="block" id="formula-input">
+			<form action="display_text_output()" method="GET">
+				<label>Formula:</label>
+				<input type ="text" id="formula" name="formula" required>
+				<button type ="reset">Reset</button>
+				<button type="submit">Submit</button>
+				<br><br>
+			</form>
+		</div>
+		<div class="block" id="text-output"><p>Text output</p></div>
+		<div class="block" id="graphic-output">Graph output</div>
+
+    <form name="data-form" class="data-form" method="post" action="http://127.0.0.1:3000/check" enctype="multipart/form-data">
+      <textarea name="formula" id="formula"></textarea>
+      <button id="nxtbutttwo" class="btn btn-primary avatar-save" type="submit">Save Listing</button>
+    </form>
+ 
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script> 
+    <script>
+    $("document").ready(function() {
+        $(".data-form").submit(function() {
+            data = $(this).serialize();
+            if (confirm("good?"))       {
+                $.ajax({
+                    type: "get",
+                    url: "http://localhost:3000/check",
+                    data: data,
+                    success: function(response) {
+                              if (response.success) {
+								  console.log("Holala")
+								  alert("HOLA")
+                                }
+                              else {
+                                  console.log("An error has ocurred: sentence: " + response.sentence + "error: " + response.error);
+                              }
+                          },
+                          error: function() {
+                              alert("An Error has ocurred contacting the server. Please contact your system administrator");
+                          }
+                      });
+                return false;
+            }
+        });
+    });
+    </script> 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> 
+</body>
+</html>
+
+
+    <!--Jquery Ajax-->

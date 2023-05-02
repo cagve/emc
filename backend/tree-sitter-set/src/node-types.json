@@ -1,0 +1,161 @@
+[
+  {
+    "type": "digit",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "relation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "world",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relationset",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "agent",
+          "named": true
+        },
+        {
+          "type": "relation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "relationset",
+          "named": true
+        },
+        {
+          "type": "valuationset",
+          "named": true
+        },
+        {
+          "type": "worldset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "valuationset",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "atom",
+          "named": true
+        },
+        {
+          "type": "world",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "world",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "digit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "worldset",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "world",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ")={",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "={",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "R",
+    "named": false
+  },
+  {
+    "type": "V(",
+    "named": false
+  },
+  {
+    "type": "W={",
+    "named": false
+  },
+  {
+    "type": "agent",
+    "named": true
+  },
+  {
+    "type": "atom",
+    "named": true
+  },
+  {
+    "type": "w",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]

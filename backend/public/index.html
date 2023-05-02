@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="js/cytoscape.js"></script>
+		<script src="js/test.js"></script>
+		<title>EMC</title>
+	</head> 
+	<body>
+		<header><h1>Epistemic Model Checker</h1></header>
+			<main id="main">
+				<div class="container" id="input">
+					<div id="formula-input">
+						<label>Formula:</label>
+						<input type ="text" id="formula" name="formula" required>
+						<button type ="reset">Reset</button>
+						<button id="formula-button" type="submit" onclick="send_formula()">Submit</button>
+					</div>
+					<div id="input-container">
+						<input type="file" name="modelfile" onChange='upload_file()'id="modelfile">
+					</div>
+				</div>
+
+				<div class ="container" id="output">
+					<div class="output" id="text"></div>
+					<div class="output" id="graph">
+						<div class="buttons" id="buttons"></div>
+						<div class="graph" id="cy"></div>
+					</div>
+				</div>
+
+				<!-- <div class="block" id="graphic-content">Graph output</div>   -->
+			</main>
+	</body>
+</html>
+
+
+<!--Jquery Ajax-->
