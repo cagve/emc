@@ -3,6 +3,11 @@
 	src: url("https://cdn.jsdelivr.net/gh/cormullion/juliamono/webfonts/JuliaMono-Regular.woff2");
 }
 
+@font-face {
+	font-family: JuliaMono-Bold;
+	src: url("https://cdn.jsdelivr.net/gh/cormullion/juliamono/webfonts/JuliaMono-Bold.woff2");
+}
+
 @import "gruvbox.css";
 
 body {
@@ -175,6 +180,7 @@ i{
 	border-top-left-radius:6px;
 	border-top-right-radius:6px;
 }
+
 
 .radio{
   display:none;
