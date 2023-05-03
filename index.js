@@ -80,7 +80,7 @@ app.post('/upload', function(req, res) {
 
 
 	modelFile = req.files.modelfile;
-	modelFile.mv('./public/model.set');
+	modelFile.mv('/tmp/model.set');
 
 	modeldict = ts.extract_info(modelFile.data.toString());
 
