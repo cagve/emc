@@ -37,15 +37,14 @@ function send_formula(){
 			}
 
 
-			$('#buttons').html("")
+			$('#tabs').html("")
 			const formulas = []
 			Object.entries(data.graphs).forEach(element => formulas.push(element));
 			for(var i=0; i < formulas.length;i++){
 				if (i == formulas.length-1){
 					const value = formulas[i][1];
 					const str = JSON.stringify(value)
-					console.log(str)
-					$('#buttons').append("<button class='tablinks' onclick='return overwrite("+str+")'>"+i+"</button>")
+					$('#tabs').append("<input id='"+i+"' class='radio' name='group' type='radio' onclick='return overwrite("+str+")' checked><label class='tab' for='"+i+"'>"+i+"</label>");
 					break;
 				}
 				const next = i+1;
@@ -56,19 +55,21 @@ function send_formula(){
 				}else if (i == 1){
 					const value = formulas[i][1];
 					const str = JSON.stringify(value)
-					$('#buttons').append("<button class='tablinks' onclick='return overwrite("+str+")'>Model</button>")
+					$('#tabs').append("<input id='model' class='radio' name='group' type='radio' onclick='return overwrite("+str+")' checked><label class='tab' for='model'>Model</label>");
 				}else{
 					const value = formulas[i][1];
 					const str = JSON.stringify(value)
-					$('#buttons').append("<button class='tablinks' onclick='return overwrite("+str+")'>"+i+"</button>")
+					$('#tabs').append("<input id='"+i+"' class='radio' name='group' type='radio' onclick='return overwrite("+str+")' checked><label class='tab' for='"+i+"'>"+i+"</label>");
 				}
 			}
+			$("#model").prop("checked", true);
 		});
+
 }
 
 function upload_file(){
 	let formData = new FormData(); 
-	formData.append("modelfile", modelfile.files[0]);
+	formData.append("modelfile", file.files[0]);
 	$.ajax({
 		url: "/upload",
 		type: "POST",
@@ -77,8 +78,7 @@ function upload_file(){
 		contentType: false,   // tell jQuery not to set contentType
 		success: function(data){
 			console.log(data[0].graph);
-			// $('#tabspane').append('<div class="tabcontent" id="0"></div>')
-			$('#buttons').append("<button class='tablinks' onclick='return overwrite("+data[0].graph+")'>Model</button>")
+			$('#tabs').append("<input id='model' class='radio' name='group' type='radio' onclick='return overwrite("+data[0].graph+")' checked><label class='tab' for='model'>Model</label>");
 			create_graph();
 			overwrite(data[0].graph);
 		}
@@ -105,7 +105,7 @@ function overwrite(graph){
 	cy.remove(collection)
 	cy.add(graph);
 	var layout = cy.layout({
-		name: 'random'
+		name: 'circle',
 	});
 	layout.run();
 	cy.fit();
@@ -137,3 +137,14 @@ function showGraph(evt, graphName) {
 	  document.getElementById(graphName).style.display = "block";
 	  evt.currentTarget.className += " active";
 }
+
+function replace(){
+	$(document).ready(function(){
+		$("#formula").on("input", function(){
+			var formula = $(this).val().replace('&&','∧').replace('||', '∨').replace('=>','→').replace('-','¬')
+			$("#result").text(formula);
+			$("#formula").val(formula);
+		});
+	});
+}
+

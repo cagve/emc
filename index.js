@@ -6,7 +6,6 @@ const ts = require('./src/treesitter')
 const {World, Relation, Model} = require('./src/model')
 const Formula = require('./src/formula')
 const path = require("path");
-var model;
   
 
 app.use(file_upload())
@@ -18,6 +17,7 @@ app.use(express.static(static_path));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/check", (req, res) => {
+	const model = initialize_model()
 	var agent = "";
 	const formula = new Formula(req.query.formula);
 	if (formula.type() == "know" || formula.type() == "pos"){
@@ -86,7 +86,7 @@ app.post('/upload', function(req, res) {
 
 	const worldset = []
 	const relationset = []
-	model = new Model(worldset, relationset);
+	const model = new Model(worldset, relationset);
 	model.from_dict(modeldict);
 	const graph = model.output();
 	   res.json([{
@@ -95,6 +95,15 @@ app.post('/upload', function(req, res) {
 		   }])
 });
 
+function initialize_model(){
+	var text = fs.readFileSync("/tmp/model.set").toString('utf8');
+	const modeldict = ts.extract_info(text);
+	const worldset = [];
+	const relationset = [];
+	const model = new Model(worldset, relationset);
+	model.from_dict(modeldict)
+	return model;
+}
 
 app.listen(3000, () => {
 	console.log("Application started and Listening on port 3000");
