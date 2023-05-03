@@ -137,3 +137,14 @@ function showGraph(evt, graphName) {
 	  document.getElementById(graphName).style.display = "block";
 	  evt.currentTarget.className += " active";
 }
+
+function replace(){
+	$(document).ready(function(){
+		$("#formula").on("input", function(){
+			var formula = $(this).val().replace('&&','∧').replace('||', '∨').replace('=>','→').replace('-','¬')
+			$("#result").text(formula);
+			$("#formula").val(formula);
+		});
+	});
+}
+

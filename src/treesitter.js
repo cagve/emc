@@ -36,12 +36,13 @@ function extract_info(file_string){
 	query = new Query(Set, "(statement (relationset) @relationset)");
 	matches = query.matches(tree.rootNode);
 	let relations = []
-	for (i=0; i<matches.length; i++) {
-		var cap = matches[i].captures;
+	for (j=0; j<matches.length; j++) {
+		var cap = matches[j].captures;
 		cap.forEach(element => {
 			const agent = element.node.child(1).text;
+			const tree_str = parser.parse(element.node.text);
 			r_query = new Query(Set, "(statement (relationset(relation) @relation))");
-			r_matches = r_query.matches(tree.rootNode);
+			r_matches = r_query.matches(tree_str.rootNode);
 			for (w=0; w<r_matches.length; w++) {
 				var relationcap = r_matches[w].captures;
 				relationcap.forEach(element => {
