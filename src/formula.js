@@ -50,10 +50,10 @@ class Formula {
 				var term1 = this.tree.rootNode.namedChildren[0].text;
 				var term2 = this.tree.rootNode.namedChildren[2].text;
 				if (term1[0] =="("){
-				term1 = term.slice(1,term.length-1);
+				term1 = term1.slice(1,term1.length-1);
 				}
 				if (term2[0] =="("){
-				term2 = term.slice(1,term.length-1);
+				term2 = term2.slice(1,term2.length-1);
 				}
 				terms.push(new Formula(term1));
 				terms.push(new Formula(term2));
