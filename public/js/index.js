@@ -219,6 +219,9 @@ function keyboard(key, type){
 		case "return":
 			$("#run-button").trigger('click');
 			break;
+		case "remove":
+			$('#formula').val(value.substr(0, value.length - 1));
+			break;
 		case "right":
 		case "left":
 			break
