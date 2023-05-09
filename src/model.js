@@ -388,6 +388,32 @@ class Model {
 			text = ''
 		}
 	}
+
+	closure(type){
+		const agents = [];
+		this.relationset.forEach(element => {
+			if (!agents.includes(element)){
+				agents.push(element.agent)
+			}
+		})
+		switch(type){
+			case "recursive":
+				console.log("Recursive closure");
+				var new_relations = [];
+				for (var i = 0;i< this.worldset.length; i++){
+					agents.forEach(agent => {
+						const world1 = (this.worldset[i])
+						const relation = new Relation(agent, world1, world1)
+						this.add_relation(relation)
+
+					})
+				}
+				break;
+			default:
+				console.log("Not known");
+				break;
+		}
+	}
 }
 
 
