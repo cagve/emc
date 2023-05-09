@@ -1,3 +1,11 @@
+function setup(){
+	$(document).keyup(function(event) {
+		if ($("#formula").is(":focus") && event.key == "Enter") {
+			$("#run-button").trigger('click');
+		}
+	});
+}
+
 function send_formula(){
 	var formula = document.getElementById('formula').value;
 	$.get("/check",
@@ -6,12 +14,17 @@ function send_formula(){
 		},
 		function (data, status) {
 			console.log(data)
+			if (data.error){
+				alert(data.msg);
+				return;
+			}
+			if ($('#cy').is(':empty')){
+				alert("Model not found");
+				$('#file').trigger('click');
+				return;
+			}
 			const myArray = data.formula.input.split(":");
 			let word = myArray[0];
-			if (data.error){
-				console.log(data.error)
-				return data.formula.input
-			}
 			$("#text-output").html("");
 			$("#text-output").append("<p>The formula "+formula+" is "+data.model_result+" in the model</p>");
 			for (const [key, value] of Object.entries(data.worlds_check)) {
@@ -147,4 +160,81 @@ function replace(){
 		});
 	});
 }
+
+function keyboard(key, type){
+	var key = key.replace('∧','&&').replace('∨','||', ).replace('→','=>').replace('¬','-',)
+	value = $('#formula').val();
+	switch (type){
+		case '0':
+			$(".type0").css('background', 'white');
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', '#ffd43b');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', 'white');
+			break;
+		case '1':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		case '2':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		case '3':
+			$(".type0").css('background', 'white');
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', '#ffd43b');
+			break;
+		case '4':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		default:
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', 'white');
+			break;
+	}
+
+	switch (key){
+		case "clear":
+			$('#formula').val('');
+			break;
+		case "space":
+			value += " ";
+			$('#formula').val(value);
+			break;
+		case "return":
+			$("#run-button").trigger('click');
+			break;
+		case "right":
+		case "left":
+			break
+		default:
+			value += key;
+			$('#formula').val(value);
+			break;
+	}
+}
+
+function toggleKeyboard() {
+	if($("#keyboard-checkbox").is(":checked"))   
+		$(".base").show();
+	else
+		$(".base").hide();
+}
+
+
 

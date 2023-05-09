@@ -13,12 +13,11 @@ function parse_formula(formula){
 		const errors = [];
 		for (i=0; i<matches.length; i++) {
 			var cap = matches[i].captures;
-			cap.forEach(element => errors.push(element.node.startPosition.column));
+			cap.forEach(element => errors.push(element.node.text));
 		}
-		// throw new Error('Invalid formula. Error at position: '+errors);
-		return "Error: Syntax error at position: "+errors
+		return [false, errors];
 	}else{
-		return formula;
+		return [true, null];
 	}
 }
 

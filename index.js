@@ -18,49 +18,56 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/check", (req, res) => {
 	const model = initialize_model()
-	var agent = "";
-	const formula = new Formula(req.query.formula);
-	if (formula.type() == "know" || formula.type() == "pos"){
-		agent = formula.agent();
-	}
-	const worlds = model.worldset
+	if (!ts.parse_formula(req.query.formula)[0]){
+		const errormsg =  ts.parse_formula(req.query.formula)[1];
+		res.json({error:true, msg:"Syntax error in "+errormsg});
+	// }else if(fs.existsSync('/tmp/model.set')){
+		// res.json({error:true, msg:"Model not found"});
+	} else{
+		var agent = "";
+		const formula = new Formula(req.query.formula);
+		if (formula.type() == "know" || formula.type() == "pos"){
+			agent = formula.agent();
+		}
+		const worlds = model.worldset
 
-	let response = {
-		formula:formula.tree,
-		model_result: null,
-		worlds_check: { },
-		syntax_error:false,
-		acc_worlds: { },
-		agent: agent,
-		terms: formula.term_string(),
-		type: formula.type(),
-		graph: model.output(),
-		graphs: { }
-	}
+		let response = {
+			formula:formula.tree,
+			error: false,
+			model_result: null,
+			worlds_check: { },
+			acc_worlds: { },
+			agent: agent,
+			terms: formula.term_string(),
+			type: formula.type(),
+			graph: model.output(),
+			graphs: { }
+		}
 
-	for(k=0; k<formula.subformulas().length; k++){
-		const cloned_model = model;
-		const subformula= formula.subformulas()[k];
-		cloned_model.model_checking(subformula);
-		response.graphs[subformula.formula] = cloned_model.output();
-	}
+		for(k=0; k<formula.subformulas().length; k++){
+			const cloned_model = model;
+			const subformula= formula.subformulas()[k];
+			cloned_model.model_checking(subformula);
+			response.graphs[subformula.formula] = cloned_model.output();
+		}
 
-	response.model_result = model.model_checking(formula);
-	if (!ts.parse_formula(formula.formula)) {
-		response.error = true
+		response.model_result = model.model_checking(formula);
+		if (!ts.parse_formula(formula.formula)) {
+			response.error = true
+		}
+		for(i=0; i<worlds.length; i++){
+			const world_name= worlds[i].name
+			const world_model = model.get_world(world_name)
+			var world_check = model.world_check(world_model, formula);
+			response.worlds_check[world_name] = world_check ;
+		}
+		for(j=0; j<worlds.length; j++){
+			const world_name= worlds[j].name
+			const world_model = model.get_world(world_name)
+			response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent).map(element => element.name);
+		}
+		res.json(response);
 	}
-	for(i=0; i<worlds.length; i++){
-		const world_name= worlds[i].name
-		const world_model = model.get_world(world_name)
-		var world_check = model.world_check(world_model, formula);
-		response.worlds_check[world_name] = world_check ;
-	}
-	for(j=0; j<worlds.length; j++){
-		const world_name= worlds[j].name
-		const world_model = model.get_world(world_name)
-		response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent).map(element => element.name);
-	}
-	res.json(response);
 })
 
 app.post('/upload', function(req, res) {

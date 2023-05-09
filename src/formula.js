@@ -7,7 +7,7 @@ parser.setLanguage(Ep);
 
 class Formula {
 	constructor(formula) {
-		this.formula = ts.parse_formula(formula);	
+		this.formula = formula;	
 		this.tree = parser.parse(this.formula);
 	}
 
