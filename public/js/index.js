@@ -1,3 +1,11 @@
+function setup(){
+	$(document).keyup(function(event) {
+		if ($("#formula").is(":focus") && event.key == "Enter") {
+			$("#run-button").trigger('click');
+		}
+	});
+}
+
 function send_formula(){
 	var formula = document.getElementById('formula').value;
 	$.get("/check",
@@ -5,13 +13,19 @@ function send_formula(){
 			formula: formula,
 		},
 		function (data, status) {
-			console.log(data)
+			console.log(data);
+			if (data.error){
+				alert(data.msg);
+				return;
+			}else if($('#cy').is(':empty')){
+				alert("Model not found");
+				return;
+			}else if(!$('#formula').val()){
+				alert("Formula not found");
+				return;
+			}
 			const myArray = data.formula.input.split(":");
 			let word = myArray[0];
-			if (data.error){
-				console.log(data.error)
-				return data.formula.input
-			}
 			$("#text-output").html("");
 			$("#text-output").append("<p>The formula "+formula+" is "+data.model_result+" in the model</p>");
 			for (const [key, value] of Object.entries(data.worlds_check)) {
@@ -77,7 +91,8 @@ function upload_file(){
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,   // tell jQuery not to set contentType
 		success: function(data){
-			console.log(data[0].graph);
+			console.log(data);
+			$("#tabs").empty();
 			$('#tabs').append("<input id='model' class='radio' name='group' type='radio' onclick='return overwrite("+data[0].graph+")' checked><label class='tab' for='model'>Model</label>");
 			create_graph();
 			overwrite(data[0].graph);
@@ -147,4 +162,86 @@ function replace(){
 		});
 	});
 }
+
+function keyboard(key, type){
+	var key = key.replace('∧','&&').replace('∨','||', ).replace('→','=>').replace('¬','-',)
+	value = $('#formula').val();
+	switch (type){
+		case '0':
+			$(".type0").css('background', 'white');
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', '#ffd43b');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', 'white');
+			break;
+		case '1':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		case '2':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		case '3':
+			$(".type0").css('background', 'white');
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', '#ffd43b');
+			break;
+		case '4':
+			$(".type0").css('background', '#ffd43b');
+			$(".type1").css('background', '#ffd43b');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', '#ffd43b');
+			$(".type4").css('background', 'white');
+			break;
+		default:
+			$(".type1").css('background', 'white');
+			$(".type2").css('background', 'white');
+			$(".type3").css('background', 'white');
+			$(".type4").css('background', 'white');
+			break;
+	}
+
+	switch (key){
+		case "clear":
+			$('#formula').val('');
+			break;
+		case "space":
+			value += " ";
+			$('#formula').val(value);
+			break;
+		case "return":
+			$("#run-button").trigger('click');
+			break;
+		case "remove":
+			$('#formula').val(value.substr(0, value.length - 1));
+			break;
+		case "right":
+		case "left":
+			break
+		default:
+			value += key;
+			$('#formula').val(value);
+			break;
+	}
+}
+
+function toggleKeyboard() {
+	if($("#keyboard-checkbox").is(":checked")){
+		$(".base").show();
+	}
+	else{
+		$(".base").hide();
+	}
+}
+
+
 

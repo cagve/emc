@@ -6,8 +6,9 @@
 		<link rel="stylesheet" href="gruvbox.css">
 		<script src="https://kit.fontawesome.com/c72bec4d11.js" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="js/cytoscape.js"></script>
-		<script src="js/test.js"></script>
+		<script src="dist/jquery.caret.js"></script>
+		<script src="dist/cytoscape.js"></script>
+		<script src="js/index.js"></script>
 		<title>EMC</title>
 	</head> 
 	<body>
@@ -17,7 +18,7 @@
 			</header>
 			<main id="main">
 				<div class="container" id="input">
-					<input type ="text" id="formula" name="formula"  placeholder="Ka(p&&q) => (Kap&&Kaq)">
+					<input type ="text" id="formula" name="formula"  placeholder="Ka(p&&q) || (Kap&&Kaq)">
 					<div class="input-button">
 						<input type="button" id="run-button" onclick="send_formula()" class="button">
 						<label for="run-button" id="run">
@@ -25,10 +26,54 @@
 						</label>
 					</div>
 					<div class="input-button">
-						<input type="file" id="file" class="button" onChange="upload_file()">
+						<input type="file" id="file" class="button" onchange="upload_file()">
 						<label for="file">
 							<i class="fa-solid fa-arrow-up-from-bracket"></i>
 						</label>
+					</div>
+					<input id="keyboard-checkbox" type="checkbox" onchange="toggleKeyboard()">
+				</div>
+				<div class="base" style="display: none;">
+					<div class="line1">
+						<span class="type0" onclick="keyboard('p','0')">p</span>
+						<span class="type0" onclick="keyboard('q','0')">q</span>
+						<span class="type0" onclick="keyboard('r','0')">r</span>
+						<span class="type0" onclick="keyboard('s','0')">s</span>
+						<span class="type0" onclick="keyboard('t','0')">t</span>
+						<span class="type0" onclick="keyboard('u','0')">u</span>
+						<span class="type0" onclick="keyboard('v','0')">v</span>
+						<span class="type0" onclick="keyboard('w','0')">w</span>
+						<span class="type0" onclick="keyboard('x','0')">x</span>
+						<span class="type0" onclick="keyboard('y','0')">y</span>
+					</div>
+					<div class="line2">
+						<span class="type1" onclick="keyboard('¬','1')">¬</span>
+						<span class="type2" onclick="keyboard('∧','2')">∧</span>
+						<span class="type2" onclick="keyboard('∨','2')">∨</span>
+						<span class="type2" onclick="keyboard('→','2')">→</span>
+						<span class="" onclick="keyboard('{','5')">{</span>
+						<span onclick="keyboard('}','5')">}</span>
+						<span onclick="keyboard('(','5')">(</span>
+						<span onclick="keyboard(')','5')">)</span>
+						<span onclick="keyboard('clear', '5')"><i class="fa-solid fa-trash"></i></span>
+					</div>
+					<div class="line3">
+						<span class="type3" onclick="keyboard('K','3')">K</span>
+						<span class="type3" onclick="keyboard('M','3')">M</span>
+						<span onclick="keyboard('C', '0')">C</span>
+						<span class="type4" onclick="keyboard('a','4')">a</span>
+						<span class="type4" onclick="keyboard('b','4')">b</span>
+						<span class="type4" onclick="keyboard('c','4')">c</span>
+						<span class="type4" onclick="keyboard('d','4')">d</span>
+						<span onclick="keyboard('remove')"><svg baseProfile="tiny" id="backspace" version="1.2" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M19.5,5h-10C8.234,5,6.666,5.807,5.93,6.837L3.32,10.49c-0.642,0.898-1.182,1.654-1.199,1.679  C2,12.344,1.999,12.661,2.124,12.833c0.023,0.033,0.555,0.777,1.188,1.664l2.619,3.667C6.666,19.193,8.233,20,9.5,20h10  c1.379,0,2.5-1.122,2.5-2.5v-10C22,6.122,20.879,5,19.5,5z M17.207,14.793c0.391,0.391,0.391,1.023,0,1.414  C17.012,16.402,16.756,16.5,16.5,16.5s-0.512-0.098-0.707-0.293L13.5,13.914l-2.293,2.293C11.012,16.402,10.756,16.5,10.5,16.5  s-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l2.293-2.293l-2.293-2.293c-0.391-0.391-0.391-1.023,0-1.414  s1.023-0.391,1.414,0l2.293,2.293l2.293-2.293c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414L14.914,12.5L17.207,14.793z"/></svg></span>
+					</div>
+					<div class="line4">
+						<span onclick="keyboard('left','a')"><i class="fa-solid fa-arrow-left"></i></span>
+						<span onclick="keyboard('right','a')"<span><i class="fa-solid fa-arrow-right"></i></span>
+							<span class="type1" onclick="keyboard('Ka','1')">Ka</span>
+							<span onclick="keyboard('space','0')">Space</span>
+							<span class="type1"onclick="keyboard('Ma','1')">Ma</span>
+							<span onclick="keyboard('return','a')">Return</span>
 					</div>
 				</div>
 
@@ -41,7 +86,6 @@
 						</div>
 					</div>
 				</div>
-
 			</main>
 
 	</body>
