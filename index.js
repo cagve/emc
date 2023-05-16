@@ -17,13 +17,13 @@ app.use(express.static(static_path));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/check", (req, res) => {
-	const model = initialize_model()
 	if (!ts.parse_formula(req.query.formula)[0]){
 		const errormsg =  ts.parse_formula(req.query.formula)[1];
 		res.json({error:true, msg:"Syntax error in "+errormsg});
-	// }else if(fs.existsSync('/tmp/model.set')){
-		// res.json({error:true, msg:"Model not found"});
+	}else if(!fs.existsSync('/tmp/model.set')){
+		res.json({error:true, msg:"Model not found"});
 	} else{
+		const model = initialize_model()
 		var agent = "";
 		const formula = new Formula(req.query.formula);
 		if (formula.type() == "know" || formula.type() == "pos"){

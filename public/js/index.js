@@ -13,14 +13,15 @@ function send_formula(){
 			formula: formula,
 		},
 		function (data, status) {
-			console.log(data)
+			console.log(data);
 			if (data.error){
 				alert(data.msg);
 				return;
-			}
-			if ($('#cy').is(':empty')){
+			}else if($('#cy').is(':empty')){
 				alert("Model not found");
-				$('#file').trigger('click');
+				return;
+			}else if(!$('#formula').val()){
+				alert("Formula not found");
 				return;
 			}
 			const myArray = data.formula.input.split(":");
@@ -90,7 +91,8 @@ function upload_file(){
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,   // tell jQuery not to set contentType
 		success: function(data){
-			console.log(data[0].graph);
+			console.log(data);
+			$("#tabs").empty();
 			$('#tabs').append("<input id='model' class='radio' name='group' type='radio' onclick='return overwrite("+data[0].graph+")' checked><label class='tab' for='model'>Model</label>");
 			create_graph();
 			overwrite(data[0].graph);
@@ -233,10 +235,12 @@ function keyboard(key, type){
 }
 
 function toggleKeyboard() {
-	if($("#keyboard-checkbox").is(":checked"))   
+	if($("#keyboard-checkbox").is(":checked")){
 		$(".base").show();
-	else
+	}
+	else{
 		$(".base").hide();
+	}
 }
 
 

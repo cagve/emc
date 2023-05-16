@@ -112,15 +112,24 @@ header{
 	color:#183153;
 }
 
-button.:active{
+#run:hover{
+	filter: brightness(85%);
+}
+
+.input-button label:active {
 	box-shadow:none;
 	transform: translateY(5px);
 
 }
 
-.clicky:hover {
-	filter: brightness(85%);
+.input-button label:hover {
+	background:#C8C8C8;
 }
+
+/* #switch{ */
+/* 	box-shadow:none; */
+/* 	transform: translateY(5px); */
+/* } */
 
 i{
 	color:#183153;
@@ -136,11 +145,6 @@ i{
   border-radius:3px 3px 0px 0px;
   box-shadow: 0 0.5rem 0.8rem #00000080;
 }
-
-
-
-
-
 
 .wrapper{
   display:flex;
@@ -191,19 +195,6 @@ input[type="radio"]:checked+label{
 	background:#183153;
 	color:white;
 }
-
-/* hola que tl */
-/* .base { */
-/* 	border-radius: 10px; */
-/* 	background: #272B2C; */
-/* 	display: flex; */
-/* 	width: 700px; */
-/* 	height: auto; */
-/* 	flex-direction: column; */
-/* 	padding: 30px 15px; */
-/* 	font: 28px arial; */
-/* 	box-shadow: 0px 40px 45px rgba(0, 0, 0, .4); */
-/* } */
 
 .base{
 	display: flex;
@@ -287,3 +278,4 @@ div span:hover {
 }
 
 
+/* Toggle checkbox */
