@@ -61,9 +61,11 @@ function send_formula(){
 			$('#tabs').html("")
 			const formulas = []
 			Object.entries(data.graphs).forEach(element => formulas.push(element));
+			console.log(data.graphs)
 			for(var i=0; i < formulas.length;i++){
 				if (i == formulas.length-1){
 					const value = formulas[i][1];
+					console.log(value)
 					const str = JSON.stringify(value)
 					$('#tabs').append("<input id='"+i+"' class='radio' name='group' type='radio' onclick='return overwrite("+str+")' checked><label class='tab' for='"+i+"'>"+i+"</label>");
 					break;

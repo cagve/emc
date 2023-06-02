@@ -59,6 +59,13 @@ class Model {
 		this.relationset=relationset;
 	}
 
+	print(){
+		for (var i=0; i<this.worldset.length; i++){
+			console.log(this.worldset[i].name);
+			console.log(this.worldset[i].formulas);
+		}
+	}
+
 	contains_world(world){
 		for(var i=0;i<this.worldset.length;i++){
 			if(world.name == this.worldset[i].name){
@@ -229,7 +236,12 @@ class Model {
 	}
 
 	model_checking(formula){
-		for (var i=0;i<this.worldset.length;i++){
+		for (var i=0;i<this.worldset.length;i++){ //THIS CAN BE IMPROVED
+			const curr_world = this.worldset[i];
+			this.world_check(curr_world,formula);
+		}
+
+		for (var i=0;i<this.worldset.length;i++){ // EL problema era que solo añadia hasta que fallaba
 			const curr_world = this.worldset[i];
 			if(!this.world_check(curr_world, formula)[0]){
 				return false;
