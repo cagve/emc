@@ -25,10 +25,16 @@ app.get("/check", (req, res) => {
 	} else{
 		const model = initialize_model()
 		var agent = "";
-		const formula = new Formula(req.query.formula);
-		if (formula.type() == "know" || formula.type() == "pos"){
+		var formula = new Formula(req.query.formula);
+		if (formula.type() == "parenthesis"){
+			const root = formula.tree.rootNode;
+			const children = root.namedChildren;
+			formula = new Formula(children[0].text)
+		}
+		if (formula.type() == "know" || formula.type() == "pos" || formula.type() == "common"){
 			agent = formula.agent();
 		}
+
 		const worlds = model.worldset
 
 		let response = {
@@ -64,7 +70,13 @@ app.get("/check", (req, res) => {
 		for(j=0; j<worlds.length; j++){
 			const world_name= worlds[j].name
 			const world_model = model.get_world(world_name)
-			response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent).map(element => element.name);
+			if (agent.length == 1){
+				response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent).map(element => element.name);
+			}else{
+				for (var w = 0; w<agent.length;w++){
+					response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent[w]).map(element => element.name);
+				}
+			}
 		}
 		res.json(response);
 	}
