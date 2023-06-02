@@ -398,7 +398,6 @@ class Model {
 		})
 		switch(type){
 			case "recursive":
-				console.log("Recursive closure");
 				var new_relations = [];
 				for (var i = 0;i< this.worldset.length; i++){
 					agents.forEach(agent => {

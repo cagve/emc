@@ -18,17 +18,16 @@ class Formula {
 	type(){
 		const root = this.tree.rootNode;
 		const childrens = root.namedChildren;
+		console.log(this.formula)
 		switch (childrens.length){
-			case 3: 
-				return childrens[1].type;
-			case 2: 
-				return childrens[0].type;
-			case 1: 
-				if (childrens[0].type == 'formula' ){
-					return "parenthesis"
-				}else{
-					return 'atom'
-				}
+			case 3: return childrens[1].type;
+			case 2: return childrens[0].type;
+			case 1: if (childrens[0].type == 'formula' ){
+				const f = new Formula(childrens[0].text)
+				return f.type()
+			}else{
+				return 'atom'
+			}
 			default: return "notfound"
 		}
 	}
