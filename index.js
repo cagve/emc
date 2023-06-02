@@ -73,9 +73,11 @@ app.get("/check", (req, res) => {
 			if (agent.length == 1){
 				response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent).map(element => element.name);
 			}else{
+				var acc_worlds = []
 				for (var w = 0; w<agent.length;w++){
-					response.acc_worlds[world_name] = model.get_acc_from_world(world_model,agent[w]).map(element => element.name);
+					acc_worlds.push(model.get_acc_from_world(world_model,agent[w]).map(element => element.name));
 				}
+				response.acc_worlds[world_name] = [...new Set(acc_worlds.flat(1))];
 			}
 		}
 		res.json(response);
