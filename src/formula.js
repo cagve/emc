@@ -25,7 +25,6 @@ class Formula {
 				return childrens[0].type;
 			case 1: 
 				if (childrens[0].type == 'formula' ){
-					const f = new Formula(childrens[0].text)
 					return "parenthesis"
 				}else{
 					return 'atom'
