@@ -49,15 +49,14 @@ function send_formula(){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
 						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because there is no accesible world for the group of agents "+data.agent+"</p>");
 					}else if(value[0] == true){ //Ca p is True 
-						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because the group of agents "+data.agent+" commonly access "+data.acc_worlds[key]+" and " + data.terms+" is true in these/those worlds</p>");
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because the group of agents "+data.agent+" commonly access to {"+data.acc_worlds[key]+"} and " + data.terms+" is true in these/those worlds</p>");
 					}else{
-						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because the group of agents "+data.agent+" commonly access "+value[1]+" and " + data.terms+" is false in this world</p>");
+						$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+" because the group of agents "+data.agent+" commonly access to "+value[1]+" and " + data.terms+" is false in this world</p>");
 					}
 				} else{
 					$("#text-output").append("<p>The formula "+formula+" is "+value[0]+" in "+ key+"</p>");
 				}
 			}
-
 
 			$('#tabs').html("")
 			const formulas = []
@@ -250,6 +249,5 @@ function toggleKeyboard() {
 		$(".base").hide();
 	}
 }
-
 
 
