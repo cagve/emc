@@ -33,7 +33,7 @@ function send_formula(){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for agent "+data.agent+".</p>");
 					}else if(value[0] == true){ //Ka p is True 
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.<\p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.</p>");
 					}else{ //Ka p is false
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is false in this world.</p>");
 					}
