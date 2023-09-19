@@ -35,6 +35,7 @@ app.get("/check", (req, res) => {
 			agent = formula.agent();
 		}
 
+		const worlds = model.worldset
 
 		let response = {
 			formula:formula.tree,
