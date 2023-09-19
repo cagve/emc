@@ -10,17 +10,23 @@
 
 @import "gruvbox.css";
 
+html{
+	scroll-behaviour: smooth;
+}
+
 body {
 	align:center;
 	font-family: JuliaMono-Regular;
 	font-style: normal;
 	display:flex;
 	justify-content:center;
+	height:90vh;
 	background-color:#e3e3e3;
 }
 
 main {
 	display: flex;
+	height:90%;
 	flex-direction:column;	
 	align-items: center;
 }
@@ -32,13 +38,13 @@ header{
 .container{
 	display: flex;
 	padding: 30px;
-	height:80%
 }
 
 .output {
 	display: flex;
-	align-items:flex-end;
+	/* align-items:flex-end; */
 	padding: 30px;
+	width:90%;
 	height:80%
 }
 
@@ -66,15 +72,17 @@ header{
 	background-color:white;
 	padding:10px;
 	margin: 10px;
+	display:flex;
+	flex-direction:column;
 	box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .box{
+	overflow:auto;
 	border-radius: 2%;
-	width: 700px;
-	height: 500px;
-	margin-left:20px;
 	padding:10px;
+	height:100%;
+	width:90%;
 	border: 3px solid #183153;
 	box-shadow:0 5px 0 #183153;
 
@@ -148,6 +156,9 @@ i{
 
 .wrapper{
   display:flex;
+  height:100%;
+  max-width:50%;
+  flex-grow:1;
   flex-direction: column;
   align-items: center;
 }
