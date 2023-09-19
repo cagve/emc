@@ -13,6 +13,7 @@ function send_formula(){
 			formula: formula,
 		},
 		function (data, status) {
+			console.log(data);
 			if (data.error){
 				alert(data.msg);
 				return;
@@ -32,28 +33,28 @@ function send_formula(){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for agent "+data.agent+".</p>");
 					}else if(value[0] == true){ //Ka p is True 
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds<.p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.<\p>");
 					}else{ //Ka p is false
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is false in this world</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is false in this world.</p>");
 					}
 				}
 				else if(data.type == "pos"){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for agent "+data.agent+"</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for agent "+data.agent+".</p>");
 					}else if (value[0] == true){
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is true in this world</p>");					
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is true in this world.</p>");					
 					}else{
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is false in these worlds</p>");					}
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is false in these worlds.</p>");					}
 				} else if(data.type == "common"){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for the group of agents "+data.agent+"</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for the group of agents "+data.agent+".</p>");
 					}else if(value[0] == true){ //Ca p is True 
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+data.group_worlds+" and " + data.terms+" is true in these worlds</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.</p>");
 					}else{
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+value[1]+" and " + data.terms+" is false in this world</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+value[1]+" and " + data.terms+" is false in this world.</p>");
 					}
 				} else{
-					$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+"</p>");
+					$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+".</p>");
 				}
 			}
 
