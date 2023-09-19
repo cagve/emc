@@ -33,13 +33,15 @@ app.get("/check", (req, res) => {
 		}
 		if (formula.type() == "know" || formula.type() == "pos" || formula.type() == "common"){
 			agent = formula.agent();
+		}if (formula.type() == "common"){
+			group_world = model.group_relation(formula.agent())
 		}
 
-		const worlds = model.worldset
 
 		let response = {
 			formula:formula.tree,
 			error: false,
+			group_world = group_world,
 			model_result: null,
 			worlds_check: { },
 			acc_worlds: { },
