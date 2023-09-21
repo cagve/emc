@@ -27,13 +27,13 @@ function send_formula(){
 			const myArray = data.formula.input.split(":");
 			let word = myArray[0];
 			$("#text-output").html("");
-			$("#text-output").append("<p>The formula "+formula+" is "+data.model_result+" in the model</p>");
+			$("#text-output").append("<p>The formula "+formula+" is <strong>"+data.model_result+"</strong> in the model</p>");
 			for (const [key, value] of Object.entries(data.worlds_check)) {
 				if (data.type == 'know'){ // EXPLANA
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for agent "+data.agent+".</p>");
 					}else if(value[0] == true){ //Ka p is True 
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is true in this/these worlds.</p>");
 					}else{ //Ka p is false
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is false in this world.</p>");
 					}
@@ -44,12 +44,12 @@ function send_formula(){
 					}else if (value[0] == true){
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+value[1]+" and " + data.terms+" is true in this world.</p>");					
 					}else{
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is false in these worlds.</p>");					}
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because agent "+data.agent+" accesses "+data.acc_worlds[key]+" and " + data.terms+" is false in this/these worlds.</p>");					}
 				} else if(data.type == "common"){
 					if(data.acc_worlds[key].length === 0){ // FINAL WORLD
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because there is no accesible world for the group of agents "+data.agent+".</p>");
 					}else if(value[0] == true){ //Ca p is True 
-						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+data.acc_worlds[key]+" and " + data.terms+" is true in these worlds.</p>");
+						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+data.acc_worlds[key]+" and " + data.terms+" is true in this/these worlds.</p>");
 					}else{
 						$("#text-output").append("<p>The formula "+formula+" is <strong>"+value[0]+"</strong> in "+ key+" because the group of agents "+data.agent+" commonly access to "+value[1]+" and " + data.terms+" is false in this world.</p>");
 					}
@@ -115,8 +115,8 @@ function create_graph(){
 		container: document.getElementById('cy'),
 		elements: [{data: { id: 'n1'}}],
 		style: [
-			{selector: 'node', style: {'shape': 'square'}},
-			{selector: '.valuation', style: {'shape':'square', "color":"white", "font-family":"bold",  'background-color':'#183153', 'text-valign':'center', 'text-halign':'center', 'content': 'data(name)'} },
+			{selector: 'node', style: {'min-width':'100px', 'shape': 'square'}},
+			{selector: '.valuation', style: {'min-width':'100px','shape':'square', "color":"white", "font-family":"bold",  'background-color':'#183153', 'text-valign':'center', 'text-halign':'center', 'content': 'data(name)'} },
 			{selector: '.world', style: { 'background-color':'#183153',  'label':'data(id)', "text-background-opacity": 0.7, "color": "#183153", "text-background-color": "white"}},
 			{selector: '.relation', style: {'target-arrow-shape': 'triangle', 'arrow-scale':'2', 'label': 'data(name)', "text-background-opacity": 1, "color": "#183153", "text-background-color": "white" }}
 		]
