@@ -34,10 +34,11 @@ app.get("/check", (req, res) => {
 		if (formula.type() == "know" || formula.type() == "pos" || formula.type() == "common"){
 			agent = formula.agent();
 		}
-		// if (formula.type() == "common"){
-		// 	agents = formula.agent();
-		// 	console.log("The agents are" + agents)
-		// }
+
+		if (formula.type() == "common"){
+			agents = formula.agent();
+			console.log("The agents are" + agents)
+		}
 
 		const worlds = model.worldset
 
