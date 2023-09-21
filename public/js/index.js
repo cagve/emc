@@ -115,8 +115,8 @@ function create_graph(){
 		container: document.getElementById('cy'),
 		elements: [{data: { id: 'n1'}}],
 		style: [
-			{selector: 'node', style: {'min-width':'100px', 'shape': 'square'}},
-			{selector: '.valuation', style: {'min-width':'100px','shape':'square', "color":"white", "font-family":"bold",  'background-color':'#183153', 'text-valign':'center', 'text-halign':'center', 'content': 'data(name)'} },
+			{selector: 'node', style: {'shape': 'square'}},
+			{selector: '.valuation', style: {'shape':'square', "color":"white", "font-family":"bold",  'background-color':'#183153', 'text-valign':'center', 'text-halign':'center', 'content': 'data(name)'} },
 			{selector: '.world', style: { 'background-color':'#183153',  'label':'data(id)', "text-background-opacity": 0.7, "color": "#183153", "text-background-color": "white"}},
 			{selector: '.relation', style: {'target-arrow-shape': 'triangle', 'arrow-scale':'2', 'label': 'data(name)', "text-background-opacity": 1, "color": "#183153", "text-background-color": "white" }}
 		]

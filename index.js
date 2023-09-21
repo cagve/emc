@@ -34,6 +34,14 @@ app.get("/check", (req, res) => {
 		if (formula.type() == "know" || formula.type() == "pos" || formula.type() == "common"){
 			agent = formula.agent();
 		}
+		if (formula.type() == "common"){
+			agents = formula.agent();
+			const cloned_model = model;
+			console.log(cloned_model.output())
+			cloned_model.group_relations(agents)
+			console.log(cloned_model.output())
+			console.log("The agents are" + agents)
+		}
 
 		const worlds = model.worldset
 
